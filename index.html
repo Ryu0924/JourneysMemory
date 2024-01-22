@@ -17,6 +17,20 @@
 <!-- 旅行記エントリーの表示エリア -->
 <div id="travelEntries"></div>
 
+<!-- 旅行記録の入力フォーム -->
+<div>
+    <h2>旅行記録を追加</h2>
+    <form id="travelForm">
+        <label for="title">タイトル:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="text">テキスト:</label>
+        <textarea id="text" name="text" rows="4" required></textarea>
+
+        <button type="button" onclick="addTravelEntry()">旅行記録を追加</button>
+    </form>
+</div>
+
 <script>
   // LINEログインの処理
   async function loginWithLine() {
@@ -58,6 +72,24 @@
       displayTravelEntries(mockTravelEntries);
     }
   });
+
+  // 旅行記録の追加
+  function addTravelEntry() {
+    const title = document.getElementById('title').value;
+    const text = document.getElementById('text').value;
+
+    // 本来はサーバーサイドにデータを送信する処理が必要
+    const newEntry = { title, content: text };
+
+    // 仮のデータに新しいエントリーを追加
+    mockTravelEntries.push(newEntry);
+
+    // エントリーを再表示
+    displayTravelEntries(mockTravelEntries);
+
+    // 入力フォームをクリア
+    document.getElementById('travelForm').reset();
+  }
 </script>
 
 </body>
