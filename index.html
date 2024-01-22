@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅行記アプリ</title>
+    <!-- LINEログインSDKのスクリプトを追加 -->
+    <script src="https://static.line-scdn.net/liff/edge/2.14/sdk.js"></script>
+</head>
+<body>
+
+<!-- LINEログインボタン -->
+<button onclick="loginWithLine()">LINEでログイン</button>
+
+<!-- 旅行記エントリーの表示エリア -->
+<div id="travelEntries"></div>
+
+<script>
+  // LINEログインの処理
+  async function loginWithLine() {
+    try {
+      await liff.init({ liffId: '2002149713-APxo5p4b' });
+      if (!liff.isLoggedIn()) {
+        liff.login();
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+
+  // 旅行記エントリーの表示
+  function displayTravelEntries(entries) {
+    const entriesContainer = document.getElementById('travelEntries');
+    entriesContainer.innerHTML = '';
+
+    entries.forEach(entry => {
+      const entryElement = document.createElement('div');
+      entryElement.innerHTML = `
+        <h3>${entry.title}</h3>
+        <p>${entry.content}</p>
+        <hr>
+      `;
+      entriesContainer.appendChild(entryElement);
+    });
+  }
+
+  // 仮の旅行記エントリーのデータ（後でサーバーから取得する形に変更する）
+  const mockTravelEntries = [
+    { title: '日本一周旅行', content: '東京から始めて札幌まで回りました。' },
+    { title: 'ヨーロッパの旅', content: 'パリ、ローマ、バルセロナを巡りました。' },
+  ];
+
+  // ログイン後にエントリーを表示
+  liff.ready.then(() => {
+    if (liff.isLoggedIn()) {
+      displayTravelEntries(mockTravelEntries);
+    }
+  });
+</script>
+
+</body>
+</html>
