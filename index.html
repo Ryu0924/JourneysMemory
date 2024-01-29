@@ -79,18 +79,18 @@
         console.error('Error:', error);
         alert('An error occurred while saving data');
       });
-  }
    // 本来はサーバーサイドにデータを送信する処理が必要
     //const newEntry = { title, content: text };
       
     // 仮のデータに新しいエントリーを追加
-    //mockTravelEntries.push(newEntry);
+    mockTravelEntries.push(newEntry);
 
     // エントリーを再表示
-    //displayTravelEntries(mockTravelEntries);
+    displayTravelEntries(mockTravelEntries);
 
     // 入力フォームをクリア
-    //document.getElementById('travelForm').reset();
+    document.getElementById('travelForm').reset();
+  }
 </script>
 
 </body>
