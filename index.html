@@ -20,7 +20,7 @@
 <!-- 旅行記録の入力フォーム -->
 <div>
     <h2>旅行記録を追加</h2>
-    <form action="/save-data" method="post">
+    <form id="travelForm">
         <label for="title">タイトル:</label>
         <input type="text" id="title" name="title" required><br>
         <br>
@@ -28,7 +28,6 @@
         <textarea id="text" name="text" required></textarea>
 
         <button type="button" onclick="addTravelEntry()">旅行記録を追加</button>
-        <input type="submit" value="保存">
     </form>
 </div>
 
