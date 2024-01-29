@@ -84,6 +84,12 @@
     // 仮のデータに新しいエントリーを追加
     mockTravelEntries.push(newEntry);
 
+      // オブジェクトをJSONに変換してローカルストレージに保存
+    localStorage.setItem('travelEntry', JSON.stringify(newEntry));
+
+    // 保存完了メッセージを表示
+    alert('旅行記が保存されました！');
+
     // エントリーを再表示
     displayTravelEntries(mockTravelEntries);
 
