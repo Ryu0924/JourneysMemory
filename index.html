@@ -59,18 +59,38 @@
     const title = document.getElementById('title').value;
     const text = document.getElementById('text').value;
 
-    // 本来はサーバーサイドにデータを送信する処理が必要
-    const newEntry = { title, content: text };
+      // Google Apps ScriptのウェブアプリケーションのURLを指定
+    var scriptUrl = 'https://docs.google.com/spreadsheets/d/1yrdG0Z6BUJ2iC0OHaZV1LLozeNiqgEM54qMj0drWQf0/edit#gid=0';
+
+      // POSTリクエストを作成
+    fetch(scriptUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title: title, content: content }),
+    })
+      .then(response => response.text())
+      .then(message => {
+        console.log(message);
+        alert('Data saved successfully');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while saving data');
+      });
+  }
+   // 本来はサーバーサイドにデータを送信する処理が必要
+    //const newEntry = { title, content: text };
       
     // 仮のデータに新しいエントリーを追加
-    mockTravelEntries.push(newEntry);
+    //mockTravelEntries.push(newEntry);
 
     // エントリーを再表示
-    displayTravelEntries(mockTravelEntries);
+    //displayTravelEntries(mockTravelEntries);
 
     // 入力フォームをクリア
-    document.getElementById('travelForm').reset();
-  }
+    //document.getElementById('travelForm').reset();
 </script>
 
 </body>
