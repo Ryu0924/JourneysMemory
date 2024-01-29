@@ -27,12 +27,27 @@
         <label for="text">テキスト:</label>
         <textarea id="text" name="text" required></textarea>
 
-        <button onclick="saveEntry()">保存</button>
-        <button onclick="loadEntries()">投稿</button>
+        <button type="button" onclick="addTravelEntry()">投稿</button>
     </form>
 </div>
 
 <script>
+    // 旅行記エントリーの表示
+  function displayTravelEntries(entries) {
+    const entriesContainer = document.getElementById('travelEntries');
+    entriesContainer.innerHTML = '';
+
+    entries.forEach(entry => {
+      const entryElement = document.createElement('div');
+      entryElement.innerHTML = `
+        <h3>${entry.title}</h3>
+        <p>${entry.content}</p>
+        <hr>
+      `;
+      entriesContainer.appendChild(entryElement);
+    });
+  }
+    
   function saveEntry() {
     const title = document.getElementById('title').value;
     const text = document.getElementById('text').value;
@@ -57,27 +72,28 @@
       });
   }
 
-  function loadEntries() {
-    fetch('/get-entries')
-      .then(response => response.json())
-      .then(entries => {
-        const entriesContainer = document.getElementById('travelEntries');
-        entriesContainer.innerHTML = '';
+    // 仮の旅行記エントリーのデータ（後でサーバーから取得する形に変更する）
+  const mockTravelEntries = [
+    //{ title: '日本一周旅行', content: '東京から始めて札幌まで回りました。' },
+    // title: 'ヨーロッパの旅', content: 'パリ、ローマ、バルセロナを巡りました。' },
+  ];
 
-        entries.forEach(entry => {
-          const entryElement = document.createElement('div');
-          entryElement.innerHTML = `
-            <h3>${entry.title}</h3>
-            <p>${entry.content}</p>
-            <hr>
-          `;
-          entriesContainer.appendChild(entryElement);
-        });
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('読み込み中にエラーが発生しました。');
-      });
+    // 旅行記録の追加
+  function addTravelEntry() {
+    const title = document.getElementById('title').value;
+    const text = document.getElementById('text').value;
+
+    // 本来はサーバーサイドにデータを送信する処理が必要
+    const newEntry = { title, content: text };
+
+    // 仮のデータに新しいエントリーを追加
+    mockTravelEntries.push(newEntry);
+
+    // エントリーを再表示
+    displayTravelEntries(mockTravelEntries);
+
+    // 入力フォームをクリア
+    document.getElementById('travelForm').reset();
   }
 </script>
 
